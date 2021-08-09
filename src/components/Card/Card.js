@@ -1,9 +1,9 @@
 import React from "react";
-import "./Task.scss";
+import "./Card.scss";
 
-function Task() {
+function Card() {
 	return (
-			<li className="task-item">
+			<li className="card-item">
 				<img
 					src="https://images.ctfassets.net/rz1oowkt5gyp/3ZjLCD2fANfXYSN3ar9WpE/d672d8129a2afd328fae4a7c2b241559/TrelloTourPage_Lists_2x.png"
 					alt="Trello-Clone-App"
@@ -13,4 +13,4 @@ function Task() {
 	);
 }
 
-export default Task;
+export default Card;
