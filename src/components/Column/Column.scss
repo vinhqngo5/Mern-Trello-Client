@@ -5,17 +5,19 @@ $column-footer-height: 36px;
 $column-border-radius: 5px;
 $list-bg-color: #ebecf0;
 
+$column-height: calc(#{$board-content-height} - #{$gap} * 2);
 .column {
 	// grow shrik basis: tỉ lễ giản/ tỉ lệ co/ kích thước bth
 	flex: 0 0 auto;
 	width: 300px;
-	height: calc(100% - #{$gap});
+	height: $column-height;
 	// & use for css the same level class
 	// Không phải là column đầu thì sẽ có margin trái
-	&:not(:first-child) {
-		margin-left: $gap;
-	}
-
+	// -> Need to disable this because its break when using dnd lib
+	// &:not(:first-child) {
+	// 	margin-left: $gap;
+	// }
+	margin-left: $gap;
 	// >: css selector cho direct child
 	> * {
 		background-color: $list-bg-color;
@@ -31,6 +33,7 @@ $list-bg-color: #ebecf0;
 		font-weight: bold;
 		border-top-left-radius: $column-border-radius;
 		border-top-right-radius: $column-border-radius;
+		cursor: pointer;
 	}
 
 	footer {
@@ -41,11 +44,10 @@ $list-bg-color: #ebecf0;
 		border-bottom-right-radius: $column-border-radius;
 	}
 
-	ul.card-list {
-		list-style-type: none;
+	.card-list {
 		margin: 0;
 		max-height: calc(
-			100% - #{$column-header-height} - #{$column-footer-height}
+			#{$column-height} - #{$column-header-height} - #{$column-footer-height}
 		);
 		overflow-y: auto;
 		// Xoá hiển thị mũi tên ở thanh cuộn
@@ -61,5 +63,21 @@ $list-bg-color: #ebecf0;
 			background-color: darken($list-bg-color, 15);
 			border-right: 5px solid $list-bg-color;
 		}
+	}
+
+	.card-ghost {
+		transition: transform 0.18s ease;
+		transform: rotateZ(5deg);
+	}
+
+	.card-ghost-drop {
+		transition: transform 0.18s ease-in-out;
+		transform: rotateZ(0deg);
+	}
+
+	.card-drop-preview {
+		background-color: rgba(150, 150, 200, 0.1);
+		border: 1px dashed #abc;
+		margin: 5px;
 	}
 }
