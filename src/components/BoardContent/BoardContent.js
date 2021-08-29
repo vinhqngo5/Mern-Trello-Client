@@ -4,6 +4,7 @@ import { initialData } from "actions/initialData";
 import { isEmpty } from "lodash";
 import Column from "components/Column/Column";
 import { mapOrder } from "utilities/sort";
+import { applyDrag } from "utilities/dragDrop";
 import { Container, Draggable } from "react-smooth-dnd";
 
 function BoardContent() {
@@ -41,7 +42,25 @@ function BoardContent() {
 	}
 
 	const onColumnDrop = (dropResult) => {
-		console.log(dropResult);
+		let newColumns = [...columns];
+		newColumns = applyDrag(newColumns, dropResult);
+
+		let newBoard = { ...board };
+		newBoard.columnOrder = newColumns.map((c) => c.id);
+		newBoard.columns = newColumns;
+
+		setColumns(newColumns);
+		setBoard(newBoard);
+	};
+
+	const onCardDrop = (columnId, dropResult) => {
+		if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
+			let newColumns = [...columns];
+			let currentColumn = newColumns.find((c) => c.id === columnId);
+			currentColumn.cards = applyDrag(currentColumn.cards, dropResult);
+			currentColumn.cardOrder = currentColumn.cards.map((card) => card.id);
+			setColumns(newColumns);
+		}
 	};
 
 	return (
@@ -68,7 +87,7 @@ function BoardContent() {
 							}}
 							key={index}
 						>
-							<Column column={column} />
+							<Column column={column} onCardDrop={onCardDrop} />
 						</Draggable>
 					);
 				})}
