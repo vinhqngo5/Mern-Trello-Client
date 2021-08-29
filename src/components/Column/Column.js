@@ -5,15 +5,8 @@ import { mapOrder } from "utilities/sort";
 import { Container, Draggable } from "react-smooth-dnd";
 
 function Column(props) {
-	const { column } = props;
+	const { column, onCardDrop } = props;
 	const cards = mapOrder(column.cards, column.cardOrder, "id");
-
-	const onCardDrop = (dropResult) => {
-		console.log(
-			"🚀 ~ file: Column.js ~ line 12 ~ onCardDrop ~ dropResult",
-			dropResult
-		);
-	};
 
 	return (
 		<div className="column">
@@ -30,7 +23,7 @@ function Column(props) {
 					// }}
 					// onDropReady={(p) => console.log("Drop ready: ", p)}
 					groupName="col"
-					onDrop={onCardDrop}
+					onDrop={(dropResult) => onCardDrop(column.id, dropResult)}
 					getChildPayload={(index) => {
 						return cards[index];
 					}}
