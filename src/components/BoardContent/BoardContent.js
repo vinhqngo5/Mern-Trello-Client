@@ -92,6 +92,10 @@ function BoardContent() {
 					);
 				})}
 			</Container>
+			<div className="add-new-column">
+				<i className="fa fa-plus icon" />
+				&nbsp;Add another card
+			</div>
 		</div>
 	);
 }
