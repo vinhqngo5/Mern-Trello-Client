@@ -22,6 +22,7 @@ function Column(props) {
 					// 	console.log("drag leave:", column.id);
 					// }}
 					// onDropReady={(p) => console.log("Drop ready: ", p)}
+					style={{ minHeight: "10px" }}
 					groupName="col"
 					onDrop={(dropResult) => onCardDrop(column.id, dropResult)}
 					getChildPayload={(index) => {
@@ -48,7 +49,7 @@ function Column(props) {
 			<footer>
 				<div className="footer-actions">
 					<i className="fa fa-plus icon" />
-					&nbsp;Add another column
+					&nbsp;Add another card
 				</div>
 			</footer>
 		</div>
