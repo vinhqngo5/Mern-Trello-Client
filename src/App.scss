@@ -39,8 +39,9 @@ body {
 		// if want remove border
 		// border: 1px solid #ccc;
 	}
-	.btn:focus, .btn:active {
-		outline: none;
-		box-shadow: none;
+	.btn:focus,
+	.btn:active {
+		outline: none !important;
+		box-shadow: none !important;
 	}
 }
