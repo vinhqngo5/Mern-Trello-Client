@@ -104,6 +104,30 @@ function BoardContent() {
 		toggleOpenNewColumnForm();
 	};
 
+	const onUpdateColumn = (newColumnToUpdate) => {
+		const columnIdToUpdate = newColumnToUpdate.id;
+		let newColumns = [...columns];
+		const columnIndexToUpdate = newColumns.findIndex(
+			(i) => i.id === columnIdToUpdate
+		);
+
+		if (newColumnToUpdate._destroy) {
+			// remove column
+			newColumns.splice(columnIndexToUpdate, 1);
+		} else {
+			// update column
+			newColumns.splice(columnIndexToUpdate, 1, newColumnToUpdate);
+		}
+
+		// Change columns and board state
+		let newBoard = { ...board };
+		newBoard.columnOrder = newColumns.map((c) => c.id);
+		newBoard.columns = newColumns;
+
+		setColumns(newColumns);
+		setBoard(newBoard);
+	};
+
 	const onNewColumnTitleChange = useCallback((e) => {
 		setNewColumnTitle(e.target.value);
 	}, []);
@@ -145,7 +169,11 @@ function BoardContent() {
 							}}
 							key={index}
 						>
-							<Column column={column} onCardDrop={onCardDrop} />
+							<Column
+								column={column}
+								onCardDrop={onCardDrop}
+								onUpdateColumn={onUpdateColumn}
+							/>
 						</Draggable>
 					);
 				})}

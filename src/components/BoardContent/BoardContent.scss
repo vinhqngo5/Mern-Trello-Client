@@ -60,6 +60,9 @@
 
 	input.input-enter-new-column {
 		margin: 5px 0;
+		&:focus {
+			border: 1px solid $input-border-color;
+		}
 	}
 	span.cancel-new-column {
 		margin-left: $gap;
@@ -68,7 +71,7 @@
 			font-size: 18px;
 			color: $alert-danger;
 			&:hover {
-				color: darken($alert-danger, 10)
+				color: darken($alert-danger, 10);
 			}
 		}
 	}
