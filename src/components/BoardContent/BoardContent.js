@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./BoardContent.scss";
 import { initialData } from "actions/initialData";
 import { isEmpty } from "lodash";
@@ -18,6 +18,9 @@ function BoardContent() {
 	const [board, setBoard] = useState({});
 	const [columns, setColumns] = useState({});
 	const [openNewColumnForm, setOpenNewColumnForm] = useState(false);
+	const toggleOpenNewColumnForm = () => {
+		setOpenNewColumnForm(!openNewColumnForm);
+	};
 	const [newColumnTitle, setNewColumnTitle] = useState("");
 	const newColumnInputRef = useRef(null);
 
@@ -71,10 +74,6 @@ function BoardContent() {
 		}
 	};
 
-	const toggleOpenNewColumnForm = () => {
-		setOpenNewColumnForm(!openNewColumnForm);
-	};
-
 	const addNewColumn = () => {
 		// if input is empty => focus
 		if (!newColumnTitle) {
@@ -104,6 +103,7 @@ function BoardContent() {
 		toggleOpenNewColumnForm();
 	};
 
+	
 	const onUpdateColumn = (newColumnToUpdate) => {
 		const columnIdToUpdate = newColumnToUpdate.id;
 		let newColumns = [...columns];
@@ -128,9 +128,9 @@ function BoardContent() {
 		setBoard(newBoard);
 	};
 
-	const onNewColumnTitleChange = useCallback((e) => {
+	const onNewColumnTitleChange = (e) => {
 		setNewColumnTitle(e.target.value);
-	}, []);
+	};
 
 	if (isEmpty(board)) {
 		return (
@@ -173,6 +173,7 @@ function BoardContent() {
 								column={column}
 								onCardDrop={onCardDrop}
 								onUpdateColumn={onUpdateColumn}
+								onAddNewCartToColumn={onUpdateColumn}
 							/>
 						</Draggable>
 					);
@@ -204,10 +205,7 @@ function BoardContent() {
 							<Button variant="success" size="sm" onClick={addNewColumn}>
 								Add column
 							</Button>
-							<span
-								className="cancel-new-column"
-								onClick={toggleOpenNewColumnForm}
-							>
+							<span className="cancel-icon" onClick={toggleOpenNewColumnForm}>
 								<i className="fa fa-trash icon"></i>
 							</span>
 						</Col>
